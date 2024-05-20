@@ -1,0 +1,13 @@
+.login {
+    width: 50%;
+    margin: 40px auto;
+
+    .buttons {
+        display: inline-table;
+
+        button {
+            margin-right: 20px;
+        }
+
+    }
+}

@@ -1,0 +1,194 @@
+.filters {
+    display: flex;
+    justify-content: center;
+    /* Horizontally center align the items */
+    text-align: center;
+    /* Center align text content */
+
+    margin: auto;
+
+    .filter-item {
+        position: relative;
+        padding: 10px;
+        border-left: 1px solid black;
+
+        .date-input {
+            padding: 8px 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            margin-left: 10px;
+            /* -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none; */
+        }
+
+        .disabled {
+            position: absolute;
+            height: 40px;
+            z-index: 3;
+            width: 200px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding-top: 7px;
+            cursor: pointer;
+        }
+
+    }
+
+    .filter-check {
+        margin-top: 6px;
+    }
+
+    .filter-item:first-child {
+        border-left: none;
+    }
+
+
+}
+
+h3 {
+    margin-top: 10px;
+}
+
+.add-activity {
+    background-color: #A91D3A;
+    color: white;
+}
+
+.table-activities {
+    table {
+        tbody tr {
+            cursor: pointer;
+        }
+
+        tbody tr:hover {
+            background-color: lightgray;
+
+
+        }
+    }
+
+    .disabled-table {
+        color: gray;
+        pointer-events: none;
+
+        tr {
+            pointer-events: none;
+        }
+    }
+
+}
+
+.details-activity {
+    text-align: center;
+    margin-bottom: 20px;
+
+    .button-style {
+        background-color: #C73659;
+        color: #EEEEEE;
+        margin-right: 10px;
+    }
+
+    .button-style:hover {
+        background-color: #A91D3A;
+    }
+}
+
+
+.form-item {
+    padding: 10px;
+
+    .date-input {
+        padding: 8px 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        outline: none;
+        margin-left: 10px;
+    }
+}
+
+.buttons-form {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+        background-color: #A91D3A;
+        color: #EEEEEE;
+
+    }
+
+    button:hover {
+        background-color: white;
+        border: 1px solid #A91D3A;
+        color: #A91D3A;
+        font-weight: bold;
+
+    }
+}
+
+.table-asc {
+    transform: rotate(180deg);
+    display: inline-block;
+}
+
+.table-desc {
+    display: inline-block;
+}
+
+.no-sign {
+    display: none;
+}
+
+.table-priority {
+
+    text-align: center;
+
+    .list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .drag-box {
+        margin: 10px;
+        border-radius: 10px;
+        padding: 3px;
+    }
+
+    .list-activity {
+        max-height: 500px;
+        overflow-y: auto;
+    }
+
+
+}
+
+.low {
+    background-color: #B0EBB4;
+}
+
+.medium {
+    background-color: #FFDB5C;
+}
+
+.high {
+    background-color: #FFAF61;
+}
+
+.dates-fitler {
+    div {
+        width: 50px;
+        margin: 0 10px;
+        display: block;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+p.card-text {
+    margin: 5px auto;
+}

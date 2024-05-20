@@ -1,0 +1,45 @@
+.month {
+    margin-top: 30px;
+    display: flex;
+    text-align: center;
+
+
+    h5 {
+        width: 200px;
+        margin-top: 0;
+    }
+
+    div {
+        margin: 0 10px;
+        cursor: pointer;
+    }
+}
+
+.containter-element {
+    margin: 20px 12px;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+
+}
+
+div.col-lg-10.progress {
+    padding: 0;
+}
+
+.data-part1 {
+    h4 {
+        margin-top: 10px;
+    }
+}
+
+.pie {
+    width: 400px;
+    height: 400px;
+    background-image: conic-gradient(orange 64%, blue 64%, blue 81%, black 81%);
+    border-radius: 50%
+}
+
+div.user-select-none.svg-container {
+    padding: 0;
+}

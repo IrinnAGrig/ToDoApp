@@ -1,0 +1,217 @@
+<h3 class="">Filters</h3>
+<form class="filters" [formGroup]="formFilters">
+    <div class="filter-item">
+        <div class="disabled" *ngIf="!activeMonth.isActive" (mouseenter)="hovered = true" (mouseleave)="hovered = false"
+            (click)="changeTypeGetActivities()">
+            <span>{{ hovered ? 'Enable' : 'Disabled' }}</span>
+        </div>
+        <input type="month" id="start" class="date-input" name="start" min="2000-01" value="2018-05"
+            formControlName="month" />
+
+        <!-- <img src="../../assets/images/activate.png" height="20px"> -->
+    </div>
+    <div class="filter-item" style="margin-right: 16px;">
+        <div class="disabled" *ngIf="activeMonth.isActive" (mouseenter)="hovered = true" (mouseleave)="hovered = false"
+            (click)="changeTypeGetActivities()">
+            <span>{{ hovered ? 'Enable' : 'Disabled' }}</span>
+        </div>
+        <input type="date" id="birthday" name="birthday" class="date-input" pattern="\d{2}/\d{2}/\d{4}"
+            formControlName="date">
+
+    </div>
+    <div class="filter-item">
+        <label for="done">Done: </label>
+        <select id="done" name="done" class="date-input" formControlName="isCompleted">
+            <option value="any">Any</option>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
+    </div>
+    <div class="filter-item filter-check">
+        <label for="priority">Priority: </label>
+        <input id="priority" type="checkbox" name="priority" class="date-input" formControlName="priority">
+    </div>
+    <div class="filter-item filter-check">
+        <label for="inactive">For deleting: </label>
+        <input id="inactive" type="checkbox" name="inactive" class="date-input" formControlName="isActive">
+    </div>
+</form>
+<hr>
+
+<div class="mb-3 mt-1" style="justify-content: space-between; display: flex;">
+    <h3>Activities</h3>
+    <button class="btn add-activity" (click)="toggleForm()" *ngIf="!isAddingActivity">Add activity</button>
+</div>
+
+
+
+<div class="row">
+    <div class="col-lg-8" *ngIf="!formFilters.get('priority')?.value">
+        <table class="table" [ngClass]="isAddingActivity ? 'disabled-table' : ''">
+            <thead>
+                <tr>
+                    <th scope="col" (click)="sortTable('title')">Title <img *ngIf="sortedElement.element == 'title'"
+                            height="15"
+                            [ngClass]="{'table-asc': sortedElement.direction === 'asc', 'table-desc': sortedElement.direction === 'desc','no-sign': sortedElement.direction === 'nor'}"
+                            src="../assets/images/arrow.png">
+                    </th>
+                    <th scope="col" (click)="sortTable('dateCreated')">Date created <img
+                            *ngIf="sortedElement.element == 'dateCreated'" height="15"
+                            [ngClass]="{'table-asc': sortedElement.direction === 'asc', 'table-desc': sortedElement.direction === 'desc','no-sign': sortedElement.direction === 'nor'}"
+                            src="../assets/images/arrow.png"></th>
+                    <th scope="col" (click)="sortTable('date')">Date <img *ngIf="sortedElement.element == 'date'"
+                            height="15"
+                            [ngClass]="{'table-asc': sortedElement.direction === 'asc', 'table-desc': sortedElement.direction === 'desc','no-sign': sortedElement.direction === 'nor'}"
+                            src="../assets/images/arrow.png"></th>
+                    <th scope="col" (click)="sortTable('timeForCompletion')">Time <img
+                            *ngIf="sortedElement.element == 'timeForCompletion'" height="15"
+                            [ngClass]="{'table-asc': sortedElement.direction === 'asc', 'table-desc': sortedElement.direction === 'desc','no-sign': sortedElement.direction === 'nor'}"
+                            src="../assets/images/arrow.png"></th>
+                    <th scope="col" (click)="sortTable('priority')">Priority <img
+                            *ngIf="sortedElement.element == 'priority'" height="15"
+                            [ngClass]="{'table-asc': sortedElement.direction === 'asc', 'table-desc': sortedElement.direction === 'desc','no-sign': sortedElement.direction === 'nor'}"
+                            src="../assets/images/arrow.png"></th>
+                    <th scope="col" (click)="sortTable('isCompleted')">Complete <img
+                            *ngIf="sortedElement.element == 'isCompleted'" height="15"
+                            [ngClass]="{'table-asc': sortedElement.direction === 'asc', 'table-desc': sortedElement.direction === 'desc','no-sign': sortedElement.direction === 'nor'}"
+                            src="../assets/images/arrow.png"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let activity of pagedActivities;" (click)="selectActivity(activity)">
+                    <th>{{activity.title}}</th>
+                    <th>{{activity.dateCreated}}</th>
+                    <th>{{ ('0' + activity.date).slice(-2) }}-{{ ('0' + activity.month).slice(-2) }}-{{activity.year}}
+                    </th>
+                    <th>{{activity.timeForCompletion}} min</th>
+                    <th
+                        [ngClass]="activity.priority == 'High' ? 'high': activity.priority == 'Medium' ? 'medium' : 'low'">
+                        {{activity.priority}}</th>
+                    <th>{{activity.isCompleted ? "Yes": "No"}}</th>
+                </tr>
+            </tbody>
+        </table>
+        <app-pagination [pageSize]="itemsPerPage" [listLength]="activities.length"
+            (currentPage)="handlePageChange($event)"></app-pagination>
+
+    </div>
+    <div class="details-activity" [ngClass]="formFilters.get('priority')?.value ? 'col-lg-6':'col-lg-4'">
+        <div class="card" *ngIf="selectedActivity && !isAddingActivity && !isEditingActivity">
+            <div class="card-body">
+                <div style="display: flex; justify-content: space-between;">
+                    <h5 class="card-title">{{selectedActivity.title}} - <span
+                            [ngStyle]="{ color: selectedActivity.priority === 'High' ? 'red' : selectedActivity.priority === 'Medium' ? 'orange' : 'green' }">{{selectedActivity.priority}}</span>
+                    </h5>
+                    <button class="btn" (click)="selectedActivity = null"><b>x</b></button>
+                </div>
+
+                <p class="card-text">{{selectedActivity.description}}</p>
+                <p class="card-text">Needed time:
+                    {{selectedActivity.timeForCompletion | duration}}
+                </p>
+                <p class="card-text">Date created:
+                    {{selectedActivity.dateCreated}}
+                </p>
+                <p class="card-text">Date:
+                    {{('0' + selectedActivity.date).slice(-2)}}-{{('0' +
+                    selectedActivity.month).slice(-2)}}-{{selectedActivity.year}}
+                </p>
+                <p class="card-text" *ngIf="!selectedActivity.isActive">Date to be deleted:
+                    {{selectedActivity.timeToBeDeleted}}
+                </p>
+                <p class="card-text">Status: {{selectedActivity.isCompleted ? "Done" : "In progress"}}</p>
+                <div *ngIf="selectedActivity.isActive">
+                    <button *ngIf="!selectedActivity.isCompleted" class="btn button-style"
+                        (click)="setDone(true)">Done</button>
+                    <button *ngIf="selectedActivity.isCompleted" class="btn btn-dark" style="margin-right: 10px;"
+                        (click)="setDone(false)">unDone</button>
+                    <button class="btn button-style" (click)="enterEditMode()">Edit</button>
+                    <button class="btn button-style" (click)="deleteActivity()">Delete</button>
+                </div>
+                <div *ngIf="!selectedActivity.isActive">
+                    <button class="btn button-style" (click)="restoreActivity()">Restore</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="card" *ngIf="isAddingActivity || isEditingActivity">
+            <div class="card-body">
+                <h5>{{isAddingActivity ? 'Complete form' : 'Modify form'}}</h5>
+                <form [formGroup]="cardForm" (ngSubmit)="submit()">
+                    <div class="form-item">
+                        <label>Title: </label>
+                        <input type="text" class="form-control" formControlName="title">
+                    </div>
+                    <div class="form-item">
+                        <label>Description: </label>
+                        <textarea class="form-control" formControlName="description"></textarea>
+                    </div>
+                    <div class="form-item">
+                        <label for="time">Time(min): </label>
+                        <input type="number" id="time" name="time" class="date-input" formControlName="time" min="1">
+                    </div>
+                    <div class="form-item">
+                        <label for="birthday">Day: </label>
+                        <input type="date" id="birthday" name="birthday" class="date-input" formControlName="date">
+                    </div>
+                    <div class="form-item">
+                        <label for="priority">Priority: </label>
+                        <select id="priority" name="priority" class="date-input" formControlName="priority">
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                        </select>
+                    </div>
+                    <div class="buttons-form">
+                        <button class="btn"
+                            (click)="isAddingActivity ? toggleForm() : isEditingActivity = false;">Cancel</button>
+                        <button class="btn" type="submit" [disabled]="cardForm.invalid">{{isAddingActivity ? 'Add' :
+                            'Save'}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="formFilters.get('priority')?.value">
+    <div class="col-lg-4 table-priority">
+        <div #lowList="cdkDropList" class="box-list" cdkDropList cdkDropListOrientation="vertical"
+            [cdkDropListData]="activitiesPriority.lowPriority" [cdkDropListConnectedTo]="[mediumList, highList]"
+            (cdkDropListDropped)="onDrop($event, 'Low')">
+            <h5>Low</h5>
+            <div class="list-activity">
+                <div class="drag-box low" *ngFor="let activity of activitiesPriority.lowPriority" cdkDrag
+                    [cdkDragData]="activity" (click)="selectActivity(activity)">
+                    {{activity.title}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 table-priority">
+        <div #mediumList="cdkDropList" class="box-list" cdkDropList cdkDropListOrientation="vertical"
+            [cdkDropListData]="activitiesPriority.mediumPriority" [cdkDropListConnectedTo]="[lowList, highList]"
+            (cdkDropListDropped)="onDrop($event, 'Medium')">
+            <h5>Medium</h5>
+            <div class="list-activity">
+                <div class="drag-box medium" *ngFor="let activity of activitiesPriority.mediumPriority" cdkDrag
+                    [cdkDragData]="activity" (click)="selectActivity(activity)">
+                    {{activity.title}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 table-priority">
+        <div #highList="cdkDropList" class="box-list" cdkDropList cdkDropListOrientation="vertical"
+            [cdkDropListData]="activitiesPriority.highPriority" [cdkDropListConnectedTo]="[lowList, mediumList]"
+            (cdkDropListDropped)="onDrop($event, 'High')">
+            <h5>High</h5>
+            <div class="list-activity">
+                <div class="drag-box high" *ngFor="let activity of activitiesPriority.highPriority" cdkDrag
+                    [cdkDragData]="activity" (click)="selectActivity(activity)">
+                    {{activity.title}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

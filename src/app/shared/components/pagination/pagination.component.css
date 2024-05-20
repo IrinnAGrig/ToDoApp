@@ -1,0 +1,29 @@
+li {
+    cursor: pointer;
+    background-color: white;
+}
+
+nav {
+    margin: 20px 0;
+}
+
+.page-link {
+    color: #C73659;
+    background-color: white;
+}
+
+.page-item.active {
+    background-color: #C73659;
+    color: white;
+}
+
+.page-item {
+    background-color: white;
+    color: white;
+}
+
+.page-item.active>.page-link {
+    background-color: #A91D3A;
+    border-color: #C73659;
+    color: white;
+}

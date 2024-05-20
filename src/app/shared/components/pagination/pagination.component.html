@@ -1,0 +1,21 @@
+<nav>
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" (click)="goToPage( actualPage - 1)" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item" *ngFor="let pageNumber of getPageNumbers(totalPages);let index=index"
+        [class.active]="pageNumber == actualPage">
+        <a class="page-link" *ngIf="pageNumber != 0" (click)="goToPage(pageNumber)">{{ pageNumber }}</a>
+        <a class="page-link" *ngIf="pageNumber == 0" (click)="duobleStep(pages[index-1])">
+          <p style="margin-bottom: 0;">...</p>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" (click)="goToPage( actualPage + 1)" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>

@@ -1,0 +1,34 @@
+<div class="body">
+  <ul class="nav justify-content-center">
+    <li class="nav-item" [ngClass]="!(user && user.id != '') ? 'disabled-route' : ''">
+      <a class="nav-link" routerLinkActive="active" routerLink="/activities">Activities</a>
+    </li>
+    <li class="nav-item" [ngClass]="!(user && user.id != '') ? 'disabled-route' : ''">
+      <a class="nav-link" routerLinkActive="active" routerLink="/report"
+        [ariaDisabled]="!(user && user.fullName)">Report</a>
+    </li>
+    <li class="nav-item" *ngIf="user && user.id != ''">
+      <a class="nav-link" (click)="logout()">Log out</a>
+    </li>
+  </ul>
+</div>
+
+<div style="width: 80%; margin: 20px auto;">
+  <router-outlet></router-outlet>
+</div>
+
+
+<!-- <div class="container-waves">
+  <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28"
+    preserveAspectRatio="none" shape-rendering="auto">
+    <defs>
+      <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+    </defs>
+    <g class="parallax">
+      <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(169, 29, 58, 0.7)" />
+      <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(169, 29, 58, 0.5)" />
+      <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(169, 29, 58, 0.3)" />
+      <use xlink:href="#gentle-wave" x="48" y="7" fill="rgb(169, 29, 58)" />
+    </g>
+  </svg>
+</div> -->

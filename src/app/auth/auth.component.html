@@ -1,0 +1,43 @@
+<div class="login">
+    <h4 class="mb-4">{{modeSignIn ? 'Sign in' : 'Sign up'}}</h4>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="modeSignIn">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                formControlName="username">
+            <label for="floatingInput">Email</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                formControlName="password">
+            <label for="floatingPassword">Password</label>
+        </div>
+        <p *ngIf="errorSignIn" style="color: red; font-weight: bold;margin-top: 20px;">The username or the password is
+            incorrect!</p>
+        <div class="buttons">
+            <button class="btn mt-4" type="submit" [disabled]="!loginForm.valid">Sign in</button>
+            <button class="btn mt-4" type="submit" (click)="changeMode(!modeSignIn)">Sign up</button>
+        </div>
+    </form>
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" *ngIf="!modeSignIn">
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                formControlName="username">
+            <label for="floatingInput">Email</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                formControlName="fullName">
+            <label for="floatingInput">Full Name</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                formControlName="password">
+            <label for="floatingPassword">Password</label>
+        </div>
+        <div class="buttons">
+            <button class="btn mt-4" type="submit" [disabled]="!signUpForm.valid">Sign up</button>
+
+            <button class="btn mt-4" type="submit" (click)="changeMode(!modeSignIn)">Log in</button>
+        </div>
+    </form>
+</div>

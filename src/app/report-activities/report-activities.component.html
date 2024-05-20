@@ -1,0 +1,49 @@
+<div class="month justify-content-center">
+    <div (click)="changeMonth(-1)"><b>
+            < </b>
+    </div>
+    <h5><b>{{getCurrentMonthName()}} ( {{this.year}} )</b> </h5>
+    <div (click)="changeMonth(1)"> <b> ></b></div>
+</div>
+<div class=" progress mt-3">
+    <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+        [ngStyle]="{width: completionProgress+'%'}" style="background-color: #A91D3A;">
+        <span class="sr-only">{{completionProgress}}% Complete</span>
+    </div>
+</div>
+
+<div class="row data-part1">
+    <div class="col activities-completion containter-element">
+        <h5> Percentage of complection</h5>
+        <plotly-plot [data]="data" [layout]="layout"></plotly-plot>
+    </div>
+    <div class="col containter-element" style="padding-top: 10px;">
+        <h5 class="mb-2">Days activities</h5>
+        <div class="row">
+            <div class="col">
+                <h6>without </h6>
+                <h4>{{this.numbers.length}} days</h4>
+            </div>
+            <div class="col">
+                <h6>with</h6>
+                <h4>{{this.totalDays.length - this.numbers.length}} days</h4>
+            </div>
+        </div>
+        <hr>
+        <h5 class="mb-2">Activities time</h5>
+        <div class="row">
+            <div class="col">
+                <h6>completed </h6>
+                <h4>{{this.time.completed | duration}}</h4>
+            </div>
+            <div class="col">
+                <h6>for completion</h6>
+                <h4>{{this.time.uncompleted | duration }}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="padding: 20px;border: 1px solid black;
+border-radius: 10px;">
+    <plotly-plot [data]="barData" [layout]="barLayout"></plotly-plot>
+</div>

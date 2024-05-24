@@ -1,16 +1,17 @@
 # ToDoApp
 
 User activity:
-The user logs in
-The user can see an input field where he can enter an activity to be done, selecting the priority level
-By pressing enter (or a button), the user can send the scheduled item to a list and see it added to a list of prioritized tasks
-The user can mark a task as completed
-User can remove a to-do item by pressing a button (or the to-do item itself), deleted items are kept for 30 days from the date of deletion
-The user can edit a to-do
-The user can see a list of all completed to-dos
-The user can see a list of all active tasks, applying various filters, sorting by date or priority
-The user can see the date the task was created
-By dragging, the user can move the task to another priority group
+- The user logs in
+- The user can see an input field where he can enter an activity to be done, selecting the priority level
+- By pressing enter (or a button), the user can send the scheduled item to a list and see it added to a list of prioritized tasks
+- The user can mark a task as completed
+- User can remove a to-do item by pressing a button (or the to-do item itself), deleted items are kept for 30 days from the date of deletion
+- The user can edit a to-do
+- The user can see a list of all completed to-dos
+- The user can see a list of all active tasks, applying various filters, sorting by date or priority
+- The user can see the date the task was created
+- By dragging, the user can move the task to another priority group
+
 The user receives a report on the activities planned for this month:
 - the percentage of their achievement in graphic form,
 - the number of days without planned tasks,
